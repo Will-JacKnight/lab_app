@@ -1,28 +1,36 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet"> <!-- 引入手写字体 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
     <style>
+        @font-face {
+            font-family: 'Bumbbled';
+            src: url('Bumbbled.otf') format('opentype');
+        }
+
         body {
-            font-family: Arial, sans-serif; 
+            font-family: Arial, sans-serif;
             margin: 0; 
-            height: 100vh; 
-            background: linear-gradient(to right, #70e1f5, #ffd194); 
+            height: 100vh;
+            background: linear-gradient(to right, #70e1f5, #ffd194);
             display: flex; 
-            justify-content: center; 
-            align-items: center; 
+            justify-content: center;
+            align-items: center;
             position: relative; 
         }
         nav {
-            position: absolute; 
+            position: absolute;
             top: 20px;
             right: 20px;
             padding: 10px 0; 
             text-align: center; 
         }
         nav a {
-            color: black; 
-            text-decoration: none; 
-            margin: 0 15px;
+            color: black;
+            text-decoration: none;
+            margin: 0 15px; 
             font-size: 18px; 
         }
         nav a:hover {
@@ -33,12 +41,12 @@
             display: flex; 
             justify-content: center; 
             align-items: center;
-            width: 80%; 
-            max-width: 1200px; 
+            width: 80%;
+            max-width: 1200px;
             position: absolute; 
             top: 50%; 
             left: 50%; 
-            transform: translate(-50%, -50%); 
+            transform: translate(-50%, -50%);
         }
         .text {
             text-align: left; 
@@ -47,19 +55,19 @@
         h1 {
             color: #FFFFFF; 
             margin: 0; 
+            font-family: 'Bumbbled'; 
         }
         #hello {
-            font-size: 160px;
+            font-size: 160px; 
         }
         #world {
-            font-family: 'Dancing Script', cursive; 
-            font-size: 100px; 
+            font-size: 106px; 
             opacity: 0; 
             transform: translateY(20px); 
             animation: fadeIn 0.5s forwards; 
         }
         .char {
-            display: inline-block;
+            display: inline-block; 
             opacity: 0; 
             transform: translateY(20px); 
             animation: fadeIn 0.5s forwards; 
@@ -74,7 +82,7 @@
             background-color: white; 
             padding: 37px; 
             border-radius: 5px; 
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.1); 
             max-width: 300px; 
         }
         label {
@@ -86,13 +94,13 @@
             padding: 10px; 
             margin-bottom: 15px; 
             border: 1px solid #ccc; 
-            border-radius: 3px;
+            border-radius: 3px; 
         }
         input[type="submit"] {
-            background-color: #007BFF;
+            background-color: #007BFF; 
             color: white; 
             border: none; 
-            border-radius: 3px;
+            border-radius: 3px; 
             padding: 12px; 
             cursor: pointer; 
         }
@@ -124,22 +132,21 @@
 
     <script>
         const helloText = "Hello";
-        const worldText = "World >> !"; 
+        const worldText = "World !";
 
         const displayText = (text, elementId) => {
             const container = document.getElementById(elementId);
             text.split("").forEach((char, index) => {
                 const span = document.createElement("span");
-                span.textContent = char; 
-                span.className = 'char'; 
-                span.style.animationDelay = `${index * 0.2}s`; 
-                container.appendChild(span); 
+                span.textContent = char;
+                span.className = 'char';
+                span.style.animationDelay = `${index * 0.2}s`;
+                container.appendChild(span);
             });
         };
 
-        displayText(helloText, "hello"); 
-        displayText(worldText, "world"); 
+        displayText(helloText, "hello");
+        displayText(worldText, "world");
     </script>
 </body>
 </html>
-

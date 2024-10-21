@@ -17,3 +17,18 @@ def submit():
 @app.route("/page")
 def page():
     return "Welcome to page!"
+
+
+@app.route("/query", methods=["GET"])
+def query():
+    query = request.args.get("q")
+    return process_query(query)
+
+
+def process_query(query):
+    if query == "Dinosaurs":
+        return "Dinosaurs ruled the Earth 200 million years ago"
+    elif query == "asteroids":
+        return "Unknown"
+    else:
+        return "This is not a proper test."

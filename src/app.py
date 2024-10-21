@@ -14,6 +14,3 @@ def submit():
 @app.route("/page")
 def page():
     return "Welcome to page!"
-
-# flask --app app.py run --host=0.0.0.0 --port 8000/homes/jw1524/modules/SSE/website/index.html
-# debug mode: flask --app example --debug run

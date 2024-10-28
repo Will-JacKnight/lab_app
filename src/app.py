@@ -74,5 +74,8 @@ def process_query(query):
         numbers = [int(num) for num in re.findall(r'\d+', query)]
         primes = [num for num in numbers if is_prime(num)]
         return ", ".join(map(str, primes))
+    elif "power":
+        numbers = [int(num) for num in re.findall(r'\d+', query)]
+        return str(numbers[0]**numbers[1])
     else:
         return "This query is not within our test case."

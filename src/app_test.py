@@ -22,5 +22,6 @@ numbers is the largest: 96, 93, 37?") == "96"
 def test_plus():
     assert process_query("What is 51 plus 27?") == "78"
 
+
 def test_minus():
     assert process_query("What is 51 minus 27?") == "24"

@@ -35,6 +35,6 @@ def process_query(query):
         return "F4"
     elif "is the largest" in query:
         integers = [int(num) for num in re.findall(r'\b\d+\b', query)]
-        return max(integers)
+        return str(max(integers))
     else:
         return "This query is not within our test case."

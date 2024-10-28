@@ -32,7 +32,8 @@ def process_query(query):
         return "Unknown"
     elif query == "What is your name?":
         return "F4"
-    elif query == "Which of the following numbers is the largest: 82, 9, 20?":
+    elif query == "Which of the following numbers is the largest: \
+82, 9, 20?":
         return 82
     else:
         return "This query is not within our test case."

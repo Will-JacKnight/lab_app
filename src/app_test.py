@@ -16,4 +16,3 @@ def test_what_is_your_name():
 
 def test_largest_number():
     assert process_query("Which of the following numbers is the largest: 82, 9, 20?") == 82
-

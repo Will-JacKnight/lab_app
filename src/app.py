@@ -38,6 +38,15 @@ def is_quare_and_cube(lt):
     return new_lt
 
 
+def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+
 def process_query(query):
     if query == "dinosaurs":
         return "Dinosaurs ruled the Earth 200 million years ago"
@@ -61,6 +70,9 @@ def process_query(query):
             if root ** 2 == num ** (1 / 3) and root ** 3 == num ** (1 / 2):
                 return num
             return "None found"
-
+    elif "are primes" in query:
+        numbers = [int(num) for num in re.findall(r'\d+', query)]
+        primes = [num for num in numbers if is_prime(num)]
+        return ", ".join(map(str, primes))
     else:
         return "This query is not within our test case."

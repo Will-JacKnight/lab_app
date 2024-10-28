@@ -40,5 +40,8 @@ def process_query(query):
     elif "plus" in query:
         summ = [int(num) for num in re.findall(r'\b\d+\b', query)]
         return str(sum(summ))
+    elif "minus" in query:
+        numbers = [int(num) for num in re.findall(r'\b\d+\b', query)]
+        return str(numbers[0]-numbers[1])
     else:
         return "This query is not within our test case."

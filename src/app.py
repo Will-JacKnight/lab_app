@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import re
 app = Flask(__name__)
 
 
@@ -32,8 +33,8 @@ def process_query(query):
         return "Unknown"
     elif query == "What is your name?":
         return "F4"
-    elif query == "Which of the following numbers is the largest: \
-82, 9, 20?":
-        return 82
+    elif "is the largest" in query:
+        integers = [int(num) for num in re.findall(r'\b\d+\b', query)]
+        return max(integers)
     else:
         return "This query is not within our test case."

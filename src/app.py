@@ -12,11 +12,11 @@ def main_page():
 
 @app.route("/submit", methods=["POST"])
 def submit():
-    GITHUB_USERNAME = request.form.get("name")
+    GITHUB_UN = request.form.get("name")
     input_age = request.form.get("age")
 
     repo_list, last_updated_list = [], []
-    response = requests.get(f"https://api.github.com/users/{GITHUB_USERNAME}/repos")
+    response = requests.get(f"https://api.github.com/users/{GITHUB_UN}/repos")
     if response.status_code == 200:
         # data returned is a list of ‘repository’ entities
         repos = response.json()
@@ -25,7 +25,7 @@ def submit():
             repo_list.append(repo["full_name"])
             last_updated_list.append(repo["updated_at"])
 
-        return render_template("hello.html", name=GITHUB_USERNAME, age=input_age,
+        return render_template("hello.html", name=GITHUB_UN, age=input_age,
                                repos=repo_list, last_updated_date=last_updated_list)
     return "Response Error!"
 

@@ -18,6 +18,17 @@
                 {% else %}
                     No commit information available.
                 {% endif %}
+
+                <p><strong>Top 5 Contributors:</strong></p>
+                {% if repo['contributors'] %}
+
+                        {% for contributor in repo['contributors'] %}
+                           <li>Contributor Name: {{ contributor['login'] }}<br></li>
+                            Number of Contributions: {{ contributor['contributions'] }}<br>
+                        {% endfor %}
+                {% else %}
+                    No contributors information available.
+                {% endif %}
             </li>
             <hr>
         {% endfor %}

@@ -49,6 +49,17 @@ def submit():
                     "message": "No commit message available"
                 }
 
+            contributors_response = requests.get(f"https://api.github.com/repos/{repo['full_name']}/contributors", headers=headers)
+            if contributors_response.status_code == 200 and contributors_response.json():
+                contributors = contributors_response.json()
+                contributors_list = []
+                for contributor in contributors[:5]:
+                    contributors_list.append({"login": contributor["login"],
+                                              "contributions": contributor["contributions"]})
+                repo_info["contributors"] = contributors_list
+            else:
+                repo_info["contributors"] = []
+
             repos.append(repo_info)
 
         return render_template("hello.html", name=GITHUB_UN, age=input_age, repos=repos)

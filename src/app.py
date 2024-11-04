@@ -27,7 +27,7 @@ def submit():
             last_updated_list.append(repo["updated_at"])
 
         return render_template("hello.html", name=GITHUB_UN, age=input_age, repos=repos)
-    return "Response Error!"
+    return f"Response Error! Error code: {response.status_code}"
 
 
 @app.route("/query", methods=["GET"])

@@ -26,7 +26,7 @@ def submit():
             last_updated_list.append(repo["updated_at"])
 
         return render_template("hello.html", name=GITHUB_UN, age=input_age,
-                               repos=repo_list, last_updated_date=last_updated_list)
+                               repos=repos)
     return "Response Error!"
 
 

@@ -16,15 +16,16 @@ def submit():
     GITHUB_UN = request.form.get("name")
     input_age = request.form.get("age")
 
-    repo_list, last_updated_list = [], []
+    repo_info = {}
     response = requests.get(f"https://api.github.com/users/{GITHUB_UN}/repos")
     if response.status_code == 200:
         # data returned is a list of ‘repository’ entities
         repos = response.json()
         for repo in repos:
-            # print(repo["full_name"])
-            repo_list.append(repo["full_name"])
-            last_updated_list.append(repo["updated_at"])
+            # repo_list.append(repo["full_name"])
+            # last_updated_list.append(repo["updated_at"])
+            repo_info["full_name"] = repo["name"]
+
 
         return render_template("hello.html", name=GITHUB_UN, age=input_age, repos=repos)
     return f"Response Error! Error code: {response.status_code}"

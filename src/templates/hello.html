@@ -9,9 +9,22 @@
                 <strong><a href="{{repo['html_url'] }}" target="_blank">{{ repo['full_name'] }}</a ></strong><br>
                 Last Updated: {{ repo['updated_at'] }}<br>
                 Description: {{ repo['description'] or "No description available." }}
+                {% if repo.commit %}
+                        <p><strong>Latest Commit:</strong></p >
+                        <ul>
+                            <li>Commit Hash: {{ repo.commit.hash }}</li>
+                            <li>Author: {{ repo.commit.author }}</li>
+                            <li>Date: {{ repo.commit.date }}</li>
+                            <li>Message: {{ repo.commit.message }}</li>
+                        </ul>
+                    {% else %}
+                        <p>No commit information available.</p >
+                    {% endif %}
             </li>
             <hr>
         {% endfor %}
     </ul>
-
 </body>
+
+
+

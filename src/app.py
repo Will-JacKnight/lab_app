@@ -18,7 +18,8 @@ def submit():
     repo_list, last_updated_list = [], []
     response = requests.get(f"https://api.github.com/users/{GITHUB_USERNAME}/repos")
     if response.status_code == 200:
-        repos = response.json() # data returned is a list of ‘repository’ entities
+        # data returned is a list of ‘repository’ entities
+        repos = response.json()
         for repo in repos:
             # print(repo["full_name"])
             repo_list.append(repo["full_name"])

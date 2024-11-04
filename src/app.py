@@ -1,32 +1,38 @@
 from flask import Flask, render_template, request
 import re
 import math
-
+import requests
 app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
+def main_page():
     return render_template("index.html")
 
 
 @app.route("/submit", methods=["POST"])
 def submit():
-    input_name = request.form.get("name")
+    GITHUB_USERNAME = request.form.get("name")
     input_age = request.form.get("age")
-    return render_template("hello.html", name=input_name, age=input_age)
 
+    repo_list, last_updated_list = [], []
+    response = requests.get(f"https://api.github.com/users/{GITHUB_USERNAME}/repos")
+    if response.status_code == 200:
+        repos = response.json() # data returned is a list of ‘repository’ entities
+        for repo in repos:
+            # print(repo["full_name"])
+            repo_list.append(repo["full_name"])
+            last_updated_list.append(repo["updated_at"])
 
-@app.route("/page")
-def page():
-    return "Welcome to page!"
+        return render_template("hello.html", name=GITHUB_USERNAME, age=input_age,
+                               repos=repo_list, last_updated_date=last_updated_list)
+    return "Response Error!"
 
 
 @app.route("/query", methods=["GET"])
 def query():
     query = request.args.get("q")
     return process_query(query)
-
 
 def is_quare_and_cube(lt):
     new_lt = []
@@ -37,7 +43,6 @@ def is_quare_and_cube(lt):
             new_lt.append(i)
     return new_lt
 
-
 def is_prime(n):
     if n < 2:
         return False
@@ -45,7 +50,6 @@ def is_prime(n):
         if n % i == 0:
             return False
     return True
-
 
 def process_query(query):
     if query == "dinosaurs":

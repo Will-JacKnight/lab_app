@@ -2,6 +2,8 @@ from flask import Flask, render_template, request
 import re
 import math
 import requests
+import os
+# import json
 
 app = Flask(__name__)
 
@@ -16,19 +18,45 @@ def submit():
     GITHUB_UN = request.form.get("name")
     input_age = request.form.get("age")
 
-    repo_info = {}
-    response = requests.get(f"https://api.github.com/users/{GITHUB_UN}/repos")
-    if response.status_code == 200:
-        # data returned is a list of ‘repository’ entities
-        repos = response.json()
-        for repo in repos:
-            # repo_list.append(repo["full_name"])
-            # last_updated_list.append(repo["updated_at"])
-            repo_info["full_name"] = repo["name"]
+    GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+    headers = {"Authorization": f"token {GITHUB_TOKEN}"}
 
+    repos = []
+    repo_response = requests.get(f"https://api.github.com/users/{GITHUB_UN}/repos", headers=headers)
+
+    if repo_response.status_code == 200:
+        repo_data = repo_response.json()
+        for repo in repo_data:
+            repo_info = {
+                "full_name": repo["full_name"],
+                "html_url": repo["html_url"],
+                "updated_at": repo["updated_at"],
+                "description": repo["description"]
+            }
+
+            commits_response = requests.get(f"https://api.github.com/repos/{repo['full_name']}/commits", headers=headers)
+            if commits_response.status_code == 200 and commits_response.json():
+                latest_commit = commits_response.json()[0]  # Get the most recent commit
+                repo_info["commit"] = {
+                    "author": latest_commit["commit"]["author"]["name"],
+                    "date": latest_commit["commit"]["author"]["date"],
+                    "message": latest_commit["commit"]["message"]
+                }
+            else:
+                repo_info["commit"] = {
+                    "author": "Unknown",
+                    "date": "Unknown",
+                    "message": "No commit message available"
+                }
+
+            repos.append(repo_info)
 
         return render_template("hello.html", name=GITHUB_UN, age=input_age, repos=repos)
-    return f"Response Error! Error code: {response.status_code}"
+
+    return "Response Error!"
+
+
+
 
 
 @app.route("/query", methods=["GET"])

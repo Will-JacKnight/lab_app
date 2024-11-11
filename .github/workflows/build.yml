@@ -18,6 +18,7 @@ jobs:
         run: flake8 --max-line-length 99 .
 
   unit-testing:
+    needs: python-formatting
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,7 +31,7 @@ jobs:
         run: pytest src/app_test.py
 
   deploy-to-impaas:
-    needs: python-formatting
+    needs: unit-testing
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
